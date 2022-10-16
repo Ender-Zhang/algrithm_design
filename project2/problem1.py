@@ -1,8 +1,8 @@
 '''
 Author: yuchen zhang yuchen.zhang1@ucdconnect.ie
 Date: 2022-10-04 19:17:52
-LastEditors: Ender-Zhang 2245430790@qq.com
-LastEditTime: 2022-10-04 22:45:01
+LastEditors: Ender-Zhang 102596313+Ender-Zhang@users.noreply.github.com
+LastEditTime: 2022-10-16 12:30:01
 FilePath: \algrithm_design\project2\problem1.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -15,7 +15,7 @@ class Solution:
         matrix = self.changeMatrix(matrix0)
         # print(matrix)
         m, n = len(matrix), len(matrix[0])
-        print(m,n)
+        # print(m,n)
         ans = []
         # r1, c1, r2, c2 = [0] * 4
         max_sum = matrix[0][0] # 全局最大和
@@ -43,8 +43,8 @@ class Solution:
                         r1 = i # 更新行起点
                         c1 = k # 更新列起点
                     
-                    if (i == 0 and c1 == 1):
-                        print(cur_max, r1, c1, j, k)
+                    # if (i == 0 and c1 == 1):
+                    #     print(cur_max, r1, c1, j, k)
 
                     if cur_max == max_sum and abs(j - r1) == abs(k - c1):
                         r2, c2 = j, k
@@ -68,42 +68,86 @@ class Solution:
                 if (matrix[i][j] == 0):
                     matrix[i][j] = - 1000
         return matrix
+    
+    def reverseMatrix(self, matrix):
+        t = max(len(matrix), len(matrix[0]))
+        if t > len(matrix):
+            for i in range(t - len(matrix)):
+                matrix.append([-1000] * t)
+        if t < len(matrix[0]):
+            for i in range(t):
+                for j in range(len(matrix[i]), t + 1):
+                    matrix[i].append(-1000)
+        if (len(matrix) != len(matrix[0])):
+            ans = [[0 for c_ in range(t)] for _ in range(t)]
+        else:
+            ans = [[0 for c_ in range(len(matrix))] for _ in range(len(matrix[0]))]
+        for i in range(len(matrix)):
+            for j in range(len(matrix[i])):
+                # print(i, j)
+                ans[i][j] = matrix[j][i]
+        return ans
 
-s = Solution()
-testCase1 = [[1,0,1,0,0],
-            [1,0,1,1,1],
-            [1,1,1,1,0],
-            [1,1,0,1,0]]
-testCase2 = [[1,1,1,1,1,1],
-            [1,1,1,1,0,0],
-            [1,1,1,1,1,1],
-            [1,1,1,0,0,0],
-            [1,0,1,0,1,1],
-            [0,0,1,1,1,1]]
-testCase3 = [[1,1,1,0,0],
-            [1,1,1,1,0],
-            [1,1,0,1,0]]
-# testCase1 = [[1,-10,1,-10,-10],
-#             [1,-10,1,1,1],
-#             [1,1,1,1,-10],
-#             [1,1,-10,1,-10]]
+    def getReverseAnswer(self, ans2):
+        for i in ans2:
+            tmp = i[0]
+            i[0] = i[1]
+            i[1] = tmp
+            tmp = i[2]
+            i[2] = i[3]
+            i[3] = tmp
+        return ans2
 
-# t = s.getMaxMatrix(testCase1)
-# for i in t:
-#     size = (i[2] - i[0]) + 1
-#     print("The size is {size} ".format(size = size))
-#     print("The indices is {indices} ".format(indices = (i[0] + 1, i[1] + 1)))
+    def integrateAnswer(self, ans1, ans2):
+        l = []
+        for i in ans1:
+            for j in ans2:
+                if (i == j):
+                    ans2.remove(j)
+        l = ans1 + ans2
+        return l
+    def getAnswer(self,matrix):
+        ans1 = self.getMaxMatrix(matrix)
+        ans2 = self.getReverseAnswer(self.getMaxMatrix(self.reverseMatrix(matrix)))
+        return self.integrateAnswer(ans1,ans2)
 
-s1 = Solution()
-t2 = s1.getMaxMatrix(testCase2)
-for i in t2:
-    size = (i[2] - i[0]) + 1
-    print("The size is {size} ".format(size = size))
-    print("The indices is {indices} ".format(indices = (i[0] + 1, i[1] + 1)))
+if __name__ == "__main__":
 
-# s2 = Solution()
-# t3 = s2.getMaxMatrix(testCase2)
-# for i in t3:
-#     size = (i[2] - i[0]) + 1
-#     print("The size is {size} ".format(size = size))
-#     print("The indices is {indices} ".format(indices = (i[0] + 1, i[1] + 1)))
+    s = Solution()
+    testCase1 = [[1,0,1,0,0],
+                [1,0,1,1,1],
+                [1,1,1,1,0],
+                [1,1,0,1,0]]
+    testCase2 = [[1,1,1,1,1,1],
+                [1,1,1,1,0,0],
+                [1,1,1,1,1,1],
+                [1,1,1,0,0,0],
+                [1,0,1,0,1,1],
+                [0,0,1,1,1,1]]
+    testCase3 = [[1,1,1,0,0],
+                [1,1,1,1,0],
+                [1,1,0,1,0]]
+    # testCase1 = [[1,-10,1,-10,-10],
+    #             [1,-10,1,1,1],
+    #             [1,1,1,1,-10],
+    #             [1,1,-10,1,-10]]
+
+    # t = s.getMaxMatrix(testCase1)
+    # for i in t:
+    #     size = (i[2] - i[0]) + 1
+    #     print("The size is {size} ".format(size = size))
+    #     print("The indices is {indices} ".format(indices = (i[0] + 1, i[1] + 1)))
+
+    s1 = Solution()
+    t2 = s1.getAnswer(testCase1)
+    size = (t2[0][2] - t2[0][0]) + 1
+    print("For testcase1: The size is {size} ".format(size = size))
+    for i in t2:
+        print("The indices is {indices} ".format(indices = (i[0] + 1, i[1] + 1)))
+
+    s2 = Solution()
+    t3 = s2.getAnswer(testCase2)
+    size = (t3[0][2] - t3[0][0]) + 1
+    print("For testcase2: The size is {size} ".format(size = size))
+    for i in t3:
+        print("The indices is {indices} ".format(indices = (i[0] + 1, i[1] + 1)))

@@ -1,8 +1,8 @@
 '''
 Author: Ender-Zhang 2245430790@qq.com
 Date: 2022-10-04 20:01:26
-LastEditors: Ender-Zhang 2245430790@qq.com
-LastEditTime: 2022-10-05 22:14:48
+LastEditors: Ender-Zhang 102596313+Ender-Zhang@users.noreply.github.com
+LastEditTime: 2022-10-16 12:30:59
 FilePath: \algrithm_design\project2\problem2.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -104,29 +104,34 @@ class SolutionB:
 
 if __name__ == "__main__":
     # partA
-    # s = SolutionA()
-    # testCase1 = [4,2,7,1,3,6,9]
-    # # ans =  [4,7,2,9,6,3,1]
-    # testCase2 = [34,24,96,10,None,None,None]
-    # #  ans = [34,96,24,None,None,None,10]
+    s = SolutionA()
+    s2 = SolutionA()
+    testCase1 = [4,2,7,1,3,6,9]
+    # ans =  [4,7,2,9,6,3,1]
+    testCase2 = [34,24,96,10,None,None,None]
+    #  ans = [34,96,24,None,None,None,10]
 
-    # ans = s.transferListToTree(testCase2)
-    # ans1 = s.invertTree(ans)
-    # print(s.transTreeToList(ans1))
+    ans = s.transTreeToList(s.invertTree(s.transferListToTree(testCase1)))
+    ans1 = s2.transTreeToList(s2.invertTree(s2.transferListToTree(testCase2)))
+    print("PartA")
+    print("Test Case 1: {testcase1}".format( testcase1 = ans))
+    print("Test Case 2: {testcase2}".format( testcase2 = ans1))
+
 
     # partB
     # partB
+    print("PartB")
     s_b = SolutionB()
     testCase1t1 = [1,2,3,4,5,6,7]
     testCase1t2 = [1,3,2,7,6,5,4]
     s_a = SolutionA()
     t1 = s_a.transferListToTree(testCase1t1)
     t2 = s_a.transferListToTree(testCase1t2)
-    print(s_b.isMirror(t1, t2))
+    print("Testcase1: " + s_b.isMirror(t1, t2))
 
     testCase2t1 = [1,2,2,None,3,None,3]
     testCase2t2 = [1,2,2,3,None,3,None]
     s_a = SolutionA()
     t1 = s_a.transferListToTree(testCase2t1)
     t2 = s_a.transferListToTree(testCase2t2)
-    print(s_b.isMirror(t1, t2))
+    print("Testcase2: " + s_b.isMirror(t1, t2))
