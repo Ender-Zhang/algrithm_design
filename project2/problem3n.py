@@ -1,4 +1,4 @@
-# from https://python.plainenglish.io/hungarian-algorithm-introduction-python-implementation-93e7c0890e15
+# The resouce is from https://python.plainenglish.io/hungarian-algorithm-introduction-python-implementation-93e7c0890e15 and https://blog.csdn.net/u014754127/article/details/78086014
 import numpy as np
 
 def min_zero_row(zero_mat, mark_zero):
@@ -134,30 +134,58 @@ def main():
 	and elements set in cost matrix are available.'''
 
 	#The matrix who you want to find the minimum sum
-	cost_matrix = np.array([[7, 6, 2, 9, 2],
-				[6, 2, 1, 3, 9],
-				[5, 6, 8, 9, 5],
-				[6, 8, 5, 8, 6],
-				[9, 5, 6, 4, 7]])
-	ans_pos = hungarian_algorithm(cost_matrix.copy())#Get the element position.
-	ans, ans_mat = ans_calculation(cost_matrix, ans_pos)#Get the minimum or maximum value and corresponding matrix.
+	testcase1 = np.array([[108, 125, 149],
+							[150, 135, 175],
+							[122, 148, 250]])
+	ans_pos = hungarian_algorithm(testcase1.copy())#Get the element position.
+	ans, ans_mat = ans_calculation(testcase1, ans_pos)#Get the minimum or maximum value and corresponding matrix.
+
+	print(f"Testcase1: total cost is {ans:.0f}")
+	list_l = ["Music service", "Cleaning service", "Driving service"]
+	list_r = ["A", "B", "C"]
+	res1 = []
+	for i in range(ans_mat.shape[0]):
+		for j in range(ans_mat.shape[1]):
+			if (ans_mat[i, j] != 0):
+				res1.append((i, j))
+	for i in range(len(res1)):
+		print(list_r[res1[i][0]], "is assigned to", list_l[res1[i][1]] + " and the cost is " + testcase1[res1[i][0], res1[i][1]].astype(str))
+	
+	#Show the result of Testcase2
+	testcase2 = np.array([[22, 14, 120, 21, 4, 51],
+							[19, 12, 172, 21, 28, 43],
+							[161, 122, 2, 50, 128, 39],
+							[19, 22, 90, 11, 28, 4],
+							[1, 30, 113, 14, 28, 86],
+							[60, 70, 170, 28, 68, 104]])
+	ans_pos = hungarian_algorithm(testcase2.copy())#Get the element position.
+	ans, ans_mat = ans_calculation(testcase2, ans_pos)#Get the minimum or maximum value and corresponding matrix.
 
 	#Show the result
-	print(f"Linear Assignment problem result: {ans:.0f}\n{ans_mat}")
+	print()
+	print(f"Testcase2: total cost is {ans:.0f}")
+	list_l = ["#191", "#122", "#173", "#121", " #128", "#104"]
+	list_r = ["A", "B", "C", "D", "E", "F"]
+	res1 = []
+	for i in range(ans_mat.shape[0]):
+		for j in range(ans_mat.shape[1]):
+			if (ans_mat[i, j] != 0):
+				res1.append((i, j))
+	# print(res1)
+	for i in range(len(res1)):
+		print(list_r[res1[i][0]], "is assigned to", list_l[res1[i][1]] + " and the cost is " + testcase2[res1[i][0], res1[i][1]].astype(str))
 
 	#If you want to find the maximum value, using the code as follows: 
 	#Using maximum value in the cost_matrix and cost_matrix to get net_matrix
-	profit_matrix = np.array([[7, 6, 2, 9, 2],
-				[6, 2, 1, 3, 9],
-				[5, 6, 8, 9, 5],
-				[6, 8, 5, 8, 6],
-				[9, 5, 6, 4, 7]])
-	max_value = np.max(profit_matrix)
-	cost_matrix = max_value - profit_matrix
-	ans_pos = hungarian_algorithm(cost_matrix.copy())#Get the element position.
-	ans, ans_mat = ans_calculation(profit_matrix, ans_pos)#Get the minimum or maximum value and corresponding matrix.
-	#Show the result
-	print(f"Linear Assignment problem result: {ans:.0f}\n{ans_mat}")
+	# profit_matrix = np.array([[108, 125, 149],
+	# 						[150, 135, 175],
+	# 						[122, 148, 250]])
+	# max_value = np.max(profit_matrix)
+	# cost_matrix = max_value - profit_matrix
+	# ans_pos = hungarian_algorithm(cost_matrix.copy())#Get the element position.
+	# ans, ans_mat = ans_calculation(profit_matrix, ans_pos)#Get the minimum or maximum value and corresponding matrix.
+	# #Show the result
+	# print(f"Linear Assignment problem result: {ans:.0f}\n{ans_mat}")
 
 if __name__ == '__main__':
 	main()
