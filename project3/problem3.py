@@ -1,3 +1,11 @@
+'''
+Author: Ender-Zhang 102596313+Ender-Zhang@users.noreply.github.com
+Date: 2022-10-31 19:06:58
+LastEditors: Ender-Zhang 102596313+Ender-Zhang@users.noreply.github.com
+LastEditTime: 2022-11-04 15:39:44
+FilePath: \algrithm_design-1\project3\problem3.py
+Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+'''
 
 import itertools
 import numpy as np
@@ -57,3 +65,16 @@ def brute_force_test_graph_isomporphism(adj_1, adj_2):
     return False
 
 
+
+if __name__ == '__main__':
+    adj1 = [[0,1,0,1,0],
+            [1,0,1,1,1],
+            [0,1,0,1,1],
+            [1,1,1,0,0],
+            [0,1,1,0,0]]
+    adj2 = [[0,1,0,1,1],
+            [1,0,0,1,0],
+            [0,0,0,1,1],
+            [1,1,1,0,1],
+            [1,0,1,1,0]]
+    print(brute_force_test_graph_isomporphism(adj1, adj2))
